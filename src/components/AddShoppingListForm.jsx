@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/styles.css'; // Import the CSS file
 
 const AddShoppingListForm = ({ onAdd }) => {
   const [name, setName] = useState('');

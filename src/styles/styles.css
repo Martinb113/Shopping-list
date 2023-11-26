@@ -1,0 +1,71 @@
+/* src/styles/styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  .header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .shopping-lists-container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .shopping-list {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .add-list-form {
+    margin-top: 20px;
+  }
+  
+  .delete-confirmation-dialog {
+    text-align: center;
+  }
+
+  /* src/styles/styles.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px; /* Increase container width */
+  margin: 20px auto;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between items */
+  align-items: flex-start; /* Align items at the top */
+}
+
+/* Rest of the styles... */
+
+  
+  /* Add more styles as needed */
+  
