@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import ShoppingList from '../components/ShoppingList';
 import AddShoppingListForm from '../components/AddShoppingListForm';
 import DeleteConfirmationDialog from '../components/DeleteConfirmationDialog';
+//import './ShoppingListsOverview.css';
+
+// src/components/ShoppingListsOverview.jsx
+
+// ... (other imports and code)
 
 const sampleData = [
-  { id: 1, name: 'Groceries', description: 'Buy essentials for the week' },
-  { id: 2, name: 'Electronics', description: 'Shopping for gadgets' },
+  { id: 1, name: 'Groceries', description: 'Buy essentials for the week', items: [] },
+  { id: 2, name: 'Electronics', description: 'Shopping for gadgets', items: [] },
+  { id: 3, name: 'Christmas shopping', description: 'Make them happy', items: [] },
+  { id: 4, name: 'Birthday party', description: 'Suprissed for my love', items: [] },
   // Add more sample data as needed
 ];
 
@@ -32,7 +39,7 @@ const ShoppingListsOverview = () => {
   };
 
   const handleAddList = (newList) => {
-    setShoppingLists([...shoppingLists, { id: shoppingLists.length + 1, ...newList }]);
+    setShoppingLists([...shoppingLists, { id: shoppingLists.length + 1, items: [], ...newList }]);
   };
 
   return (

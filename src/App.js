@@ -1,6 +1,7 @@
 // App.js
 import React from 'react';
-import './App.css';
+//import './App.css';
+import './styles/styles.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ShoppingListsOverview from './pages/ShoppingListsOverview';
 import ShoppingListDetail from './components/ShoppingListDetail';

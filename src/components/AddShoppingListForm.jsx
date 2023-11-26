@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import '../styles/styles.css'; // Import the CSS file
+// src/components/AddShoppingListForm.jsx
+
+import React, { useState } from 'react';  // Add this line
+
+// ... (other imports and code)
 
 const AddShoppingListForm = ({ onAdd }) => {
   const [name, setName] = useState('');
@@ -13,30 +16,17 @@ const AddShoppingListForm = ({ onAdd }) => {
   };
 
   return (
-    <div>
-      <h2>Add Shopping List</h2>
+    <div className="add-list-form">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="nameInput">
+        <label>
           Name:
-          <input
-            type="text"
-            id="nameInput"  // Add unique id
-            name="name"     // Add name attribute
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
-        <label htmlFor="descriptionInput">
+        <label>
           Description:
-          <input
-            type="text"
-            id="descriptionInput"  // Add unique id
-            name="description"     // Add name attribute
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
-        <button type="submit">Add</button>
+        <button type="submit">Add Item</button>
       </form>
     </div>
   );

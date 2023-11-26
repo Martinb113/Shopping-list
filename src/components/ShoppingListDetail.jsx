@@ -1,17 +1,16 @@
-// ShoppingListDetail.js
-import React from 'react';
+// src/components/ShoppingListDetail.jsx
 
-const ShoppingListDetail = ({ match }) => {
-  const { listId } = match.params; // Extracting listId from the URL params
-  // You can fetch the details of the shopping list with the provided listId from your data source
+// ... (other imports and code)
 
-  return (
-    <div>
-      <h2>Shopping List Details</h2>
-      <p>List ID: {listId}</p>
-      {/* Add more details based on your data */}
-    </div>
-  );
-};
-
-export default ShoppingListDetail;
+const ShoppingListDetail = ({ shoppingList }) => {
+    return (
+      <div>
+        <h2>{shoppingList.name}</h2>
+        <p>{shoppingList.description}</p>
+        {/* Add components to display and manage shopping items */}
+      </div>
+    );
+  };
+  
+  export default ShoppingListDetail;
+  
