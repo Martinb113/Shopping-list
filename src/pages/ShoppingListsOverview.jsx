@@ -2,35 +2,26 @@ import React, { useState } from 'react';
 import ShoppingList from '../components/ShoppingList';
 import AddShoppingListForm from '../components/AddShoppingListForm';
 import DeleteConfirmationDialog from '../components/DeleteConfirmationDialog';
-//import './ShoppingListsOverview.css';
-
-// src/components/ShoppingListsOverview.jsx
-
-// ... (other imports and code)
 
 const sampleData = [
-  { id: 1, name: 'Groceries', description: 'Buy essentials for the week', items: [] },
-  { id: 2, name: 'Electronics', description: 'Shopping for gadgets', items: [] },
-  { id: 3, name: 'Christmas shopping', description: 'Make them happy', items: [] },
-  { id: 4, name: 'Birthday party', description: 'Suprissed for my love', items: [] },
-  // Add more sample data as needed
+  { id: 1, name: 'Groceries', description: 'Buy essentials for the week', items: [], archived: false },
+  { id: 2, name: 'Electronics', description: 'Shopping for gadgets', items: [], archived: false },
+  { id: 3, name: 'Christmas shopping', description: 'Make them happy', items: [], archived: false },
+  { id: 4, name: 'Birthday party', description: 'Surprise for my love', items: [], archived: true },
+  // Add more sample data as neededalse
 ];
 
 const ShoppingListsOverview = () => {
   const [shoppingLists, setShoppingLists] = useState(sampleData);
   const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [selectedListId, setSelectedListId] = useState(null);
+  const [showArchived, setShowArchived] = useState(false);
+  const [filterType, setFilterType] = useState('all'); // Add this line
+
 
   const handleDelete = (id) => {
-    setDeleteConfirmationOpen(true);
     setSelectedListId(id);
-  };
-
-  const handleConfirmDelete = () => {
-    const updatedLists = shoppingLists.filter((list) => list.id !== selectedListId);
-    setShoppingLists(updatedLists);
-    setDeleteConfirmationOpen(false);
-    setSelectedListId(null);
+    setDeleteConfirmationOpen(true);
   };
 
   const handleCancelDelete = () => {
@@ -39,20 +30,53 @@ const ShoppingListsOverview = () => {
   };
 
   const handleAddList = (newList) => {
-    setShoppingLists([...shoppingLists, { id: shoppingLists.length + 1, items: [], ...newList }]);
+    setShoppingLists([...shoppingLists, { id: shoppingLists.length + 1, ...newList, archived: false }]);
   };
 
+  const handleToggleArchived = () => {
+    setShowArchived(!showArchived);
+  };
+
+  const handleConfirmDelete = () => {
+    const updatedLists = shoppingLists.map((list) =>
+      list.id === selectedListId ? { ...list, archived: true } : list
+    );
+    setShoppingLists(updatedLists);
+    setDeleteConfirmationOpen(false);
+    setSelectedListId(null);
+  };
+
+  const filteredLists = shoppingLists.filter(list => {
+    switch (filterType) {
+      case 'archived':
+        return list.archived;
+      case 'active':
+        return !list.archived;
+      default:
+        return true;
+    }
+  });
+  
+
   return (
-    <div>
-      <ShoppingList shoppingLists={shoppingLists} onDelete={handleDelete} />
-      <AddShoppingListForm onAdd={handleAddList} />
-      <DeleteConfirmationDialog
-        isOpen={isDeleteConfirmationOpen}
-        onCancel={handleCancelDelete}
-        onConfirm={handleConfirmDelete}
-      />
+  <div>
+    <ShoppingList shoppingLists={filteredLists} onDelete={handleDelete} />
+    <AddShoppingListForm onAdd={handleAddList} />
+    <DeleteConfirmationDialog
+                isOpen={isDeleteConfirmationOpen}
+                onCancel={handleCancelDelete}
+                onDelete={handleConfirmDelete}  // Changed to handleConfirmDelete
+            />
+  
+    <div style={{ position: 'fixed', bottom: 50, left: 10 }}>
+      <button onClick={() => setFilterType('all')}>All</button>
+      <button onClick={() => setFilterType('archived')}>Archived</button>
+      <button onClick={() => setFilterType('active')}>Active</button>
     </div>
-  );
+
+  </div>
+);
+
 };
 
 export default ShoppingListsOverview;
