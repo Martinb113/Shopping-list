@@ -15,40 +15,33 @@ const ShoppingListsOverview = () => {
   const [shoppingLists, setShoppingLists] = useState(sampleData);
   const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [selectedListId, setSelectedListId] = useState(null);
-  const [showArchived, setShowArchived] = useState(false);
-  const [filterType, setFilterType] = useState('all'); // Add this line
-
+  const [filterType, setFilterType] = useState('all'); // State to toggle archived items
 
   const handleDelete = (id) => {
     setShoppingLists(shoppingLists.filter(list => list.id !== id));
+    setDeleteConfirmationOpen(false);
   };
 
-  // Function to toggle delete confirmation dialog
-  const toggleDeleteConfirmation = (id) => {
+  // Function to open delete confirmation dialog
+  const openDeleteConfirmation = (id) => {
     setSelectedListId(id);
-    setDeleteConfirmationOpen(!isDeleteConfirmationOpen);
+    setDeleteConfirmationOpen(true);
   };
+
 
   const handleCancelDelete = () => {
     setDeleteConfirmationOpen(false);
     setSelectedListId(null);
   };
 
-  const handleAddList = (newList) => {
-    setShoppingLists([...shoppingLists, { id: shoppingLists.length + 1, ...newList, archived: false }]);
-  };
-
-  const handleArchive = (id) => {
+   const handleArchive = (id) => {
     setShoppingLists(shoppingLists.map(list => 
-        list.id === id ? { ...list, archived: true } : list
+      list.id === id ? { ...list, archived: true } : list
     ));
   };
 
-  const handleToggleArchived = () => {
-    setShowArchived(!showArchived);
-  };
 
-  const handleConfirmDelete = () => {
+   const handleConfirmDelete = () => {
     const updatedLists = shoppingLists.map((list) =>
       list.id === selectedListId ? { ...list, archived: true } : list
     );
@@ -57,45 +50,42 @@ const ShoppingListsOverview = () => {
     setSelectedListId(null);
   };
 
-  const filteredLists = showArchived ? shoppingLists.filter(list => list.archived) : shoppingLists.filter(list => !list.archived);
-  /*const filteredLists = shoppingLists.filter(list => {
+  const handleAddList = (newList) => {
+    setShoppingLists([...shoppingLists, { ...newList, id: shoppingLists.length + 1, archived: false }]);
+  };
+
+  // Filter based on filterType
+  const getFilteredLists = () => {
     switch (filterType) {
       case 'archived':
-        return list.archived;
+        return shoppingLists.filter(list => list.archived);
       case 'active':
-        return !list.archived;
+        return shoppingLists.filter(list => !list.archived);
       default:
-        return true;
+        return shoppingLists;
     }
-  });*/
-  
+  };
 
   return (
   <div>
-    <h1>My Shopping Lists</h1>
-    <AddShoppingListForm onAdd={handleAddList} />
-    <ShoppingList 
-                shoppingLists={filteredLists} 
-                onDelete={handleDelete}
-                onArchive={handleArchive}
-                onToggleDeleteConfirmation={toggleDeleteConfirmation} 
-                />
-    <DeleteConfirmationDialog
-                isOpen={isDeleteConfirmationOpen}
-                onCancel={() => setDeleteConfirmationOpen(false)}
-                onConfirm={() => {
-                  handleDelete(selectedListId);
-                  setDeleteConfirmationOpen(false);
-              }}  
-    />
-  
-    <div style={{ position: 'fixed', top: 100, right: 10 }}>
-      <button onClick={() => setFilterType('all')}>All</button>
-      <button onClick={() => setFilterType('archived')}>Archived</button>
-      <button onClick={() => setFilterType('active')}>Active</button>
+      <h1>My Shopping Lists</h1>
+      <AddShoppingListForm onAddList={handleAddList} />
+      <div style={{ margin: '10px 0' }}>
+        <button onClick={() => setFilterType('all')}>All</button>
+        <button onClick={() => setFilterType('archived')}>Archived</button>
+        <button onClick={() => setFilterType('active')}>Active</button>
+      </div>
+      <ShoppingList 
+        shoppingLists={getFilteredLists()} 
+        onDelete={openDeleteConfirmation} 
+        onArchive={handleArchive}
+      />
+      <DeleteConfirmationDialog 
+        isOpen={isDeleteConfirmationOpen} 
+        onCancel={() => setDeleteConfirmationOpen(false)} 
+        onConfirm={() => handleDelete(selectedListId)}
+      />
     </div>
-
-  </div>
 );
 
 };
