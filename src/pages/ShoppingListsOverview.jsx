@@ -89,7 +89,7 @@ const ShoppingListsOverview = () => {
               }}  
     />
   
-    <div style={{ position: 'fixed', bottom: 50, left: 10 }}>
+    <div style={{ position: 'fixed', top: 100, right: 10 }}>
       <button onClick={() => setFilterType('all')}>All</button>
       <button onClick={() => setFilterType('archived')}>Archived</button>
       <button onClick={() => setFilterType('active')}>Active</button>
