@@ -16,3 +16,4 @@ const DeleteConfirmationDialog = ({ isOpen, onCancel, onConfirm }) => {
 };
 
 export default DeleteConfirmationDialog;
+

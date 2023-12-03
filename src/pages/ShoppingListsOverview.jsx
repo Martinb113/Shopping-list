@@ -66,7 +66,7 @@ const ShoppingListsOverview = () => {
                 isOpen={isDeleteConfirmationOpen}
                 onCancel={handleCancelDelete}
                 onDelete={handleConfirmDelete}  // Changed to handleConfirmDelete
-            />
+    />
   
     <div style={{ position: 'fixed', bottom: 50, left: 10 }}>
       <button onClick={() => setFilterType('all')}>All</button>
