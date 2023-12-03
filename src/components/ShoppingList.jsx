@@ -45,7 +45,7 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
             <button className="delete-button" onClick={() => openDeleteDialog(list.id)}>
               Delete
             </button>
-            <button onClick={() => markAsDone(list.id)}>Done</button>
+            <button className="Done-Button" onClick={() => markAsDone(list.id)}>Done</button>
           </div>
         </div>
       ))}
