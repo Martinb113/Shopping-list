@@ -20,8 +20,13 @@ const ShoppingListsOverview = () => {
 
 
   const handleDelete = (id) => {
+    setShoppingLists(shoppingLists.filter(list => list.id !== id));
+  };
+
+  // Function to toggle delete confirmation dialog
+  const toggleDeleteConfirmation = (id) => {
     setSelectedListId(id);
-    setDeleteConfirmationOpen(true);
+    setDeleteConfirmationOpen(!isDeleteConfirmationOpen);
   };
 
   const handleCancelDelete = () => {
@@ -31,6 +36,12 @@ const ShoppingListsOverview = () => {
 
   const handleAddList = (newList) => {
     setShoppingLists([...shoppingLists, { id: shoppingLists.length + 1, ...newList, archived: false }]);
+  };
+
+  const handleArchive = (id) => {
+    setShoppingLists(shoppingLists.map(list => 
+        list.id === id ? { ...list, archived: true } : list
+    ));
   };
 
   const handleToggleArchived = () => {
@@ -46,7 +57,8 @@ const ShoppingListsOverview = () => {
     setSelectedListId(null);
   };
 
-  const filteredLists = shoppingLists.filter(list => {
+  const filteredLists = showArchived ? shoppingLists.filter(list => list.archived) : shoppingLists.filter(list => !list.archived);
+  /*const filteredLists = shoppingLists.filter(list => {
     switch (filterType) {
       case 'archived':
         return list.archived;
@@ -55,17 +67,26 @@ const ShoppingListsOverview = () => {
       default:
         return true;
     }
-  });
+  });*/
   
 
   return (
   <div>
-    <ShoppingList shoppingLists={filteredLists} onDelete={handleDelete} />
+    <h1>My Shopping Lists</h1>
     <AddShoppingListForm onAdd={handleAddList} />
+    <ShoppingList 
+                shoppingLists={filteredLists} 
+                onDelete={handleDelete}
+                onArchive={handleArchive}
+                onToggleDeleteConfirmation={toggleDeleteConfirmation} 
+                />
     <DeleteConfirmationDialog
                 isOpen={isDeleteConfirmationOpen}
-                onCancel={handleCancelDelete}
-                onDelete={handleConfirmDelete}  // Changed to handleConfirmDelete
+                onCancel={() => setDeleteConfirmationOpen(false)}
+                onConfirm={() => {
+                  handleDelete(selectedListId);
+                  setDeleteConfirmationOpen(false);
+              }}  
     />
   
     <div style={{ position: 'fixed', bottom: 50, left: 10 }}>
