@@ -20,8 +20,12 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
   };
 
   const confirmDelete = () => {
-    onArchive(selectedListId);
+    onDelete(selectedListId);
     closeDeleteDialog();
+  };
+
+  const markAsDone = (id) => {
+    onArchive(id);
   };
 
   const activeItems = shoppingLists.filter(list => !list.archived);
@@ -41,6 +45,7 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
             <button className="delete-button" onClick={() => openDeleteDialog(list.id)}>
               Delete
             </button>
+            <button onClick={() => markAsDone(list.id)}>Done</button>
           </div>
         </div>
       ))}
