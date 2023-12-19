@@ -60,6 +60,7 @@ const ShoppingListsOverview = () => {
   };
 
   function handleAddList(newList) {
+    console.log("test adding logs")
     setShoppingLists([...shoppingLists, { ...newList, id: shoppingLists.length + 1, archived: false }]);
   }
 

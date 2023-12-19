@@ -66,7 +66,7 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
       <DeleteConfirmationDialog
         isOpen={isDeleteDialogOpen}
         onCancel={closeDeleteDialog}
-        onDelete={confirmDelete}
+        onConfirm={confirmDelete}
       />
     </div>
   );
