@@ -17,42 +17,51 @@ const ShoppingListsOverview = () => {
   const [selectedListId, setSelectedListId] = useState(null);
   const [filterType, setFilterType] = useState('all'); // State to toggle archived items
 
-  const handleDelete = (id) => {
+  /*const handleDelete = (id) => {
     setShoppingLists(shoppingLists.filter(list => list.id !== id));
     setDeleteConfirmationOpen(false);
-  };
+  };*/
 
   // Function to open delete confirmation dialog
   const openDeleteConfirmation = (id) => {
+    console.log("Opening delete confirmation for id:", id); // Debug: Check the id being set
     setSelectedListId(id);
     setDeleteConfirmationOpen(true);
   };
 
-
-  const handleCancelDelete = () => {
-    setDeleteConfirmationOpen(false);
-    setSelectedListId(null);
-  };
-
-   const handleArchive = (id) => {
+  const handleArchive = (id) => {
     setShoppingLists(shoppingLists.map(list => 
       list.id === id ? { ...list, archived: true } : list
     ));
   };
 
 
-   const handleConfirmDelete = () => {
-    const updatedLists = shoppingLists.map((list) =>
+   /* const updatedLists = shoppingLists.map((list) =>
       list.id === selectedListId ? { ...list, archived: true } : list
     );
     setShoppingLists(updatedLists);
     setDeleteConfirmationOpen(false);
     setSelectedListId(null);
+  };*/
+
+  /*const handleConfirmDelete = () => {
+    setShoppingLists(shoppingLists.filter(list => list.id !== selectedListId));
+    setDeleteConfirmationOpen(false);
+    setSelectedListId(null);
+  };*/
+
+  const handleConfirmDelete = () => {
+    console.log("Confirming deletion for id:", selectedListId); // Debug: Confirm id
+    const newList = shoppingLists.filter(list => list.id !== selectedListId);
+    console.log("New list after deletion:", newList); // Debug: Check the new list
+    setShoppingLists(newList);
+    setDeleteConfirmationOpen(false);
+    setSelectedListId(null);
   };
 
-  const handleAddList = (newList) => {
+  function handleAddList(newList) {
     setShoppingLists([...shoppingLists, { ...newList, id: shoppingLists.length + 1, archived: false }]);
-  };
+  }
 
   // Filter based on filterType
   const getFilteredLists = () => {
@@ -83,7 +92,7 @@ const ShoppingListsOverview = () => {
       <DeleteConfirmationDialog 
         isOpen={isDeleteConfirmationOpen} 
         onCancel={() => setDeleteConfirmationOpen(false)} 
-        onConfirm={() => handleDelete(selectedListId)}
+        onConfirm={handleConfirmDelete}
       />
     </div>
 );

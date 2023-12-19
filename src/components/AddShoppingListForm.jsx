@@ -4,13 +4,13 @@ import React, { useState } from 'react';  // Add this line
 
 // ... (other imports and code)
 
-const AddShoppingListForm = ({ onAdd }) => {
+function AddShoppingListForm({ onAddList }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd({ name, description });
+    onAddList({ name, description });
     setName('');
     setDescription('');
   };
@@ -30,6 +30,6 @@ const AddShoppingListForm = ({ onAdd }) => {
       </form>
     </div>
   );
-};
+}
 
 export default AddShoppingListForm;
