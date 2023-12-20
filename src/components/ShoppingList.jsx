@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 import './ShoppingList.css';
+import { deleteShoppingList, archiveShoppingList } from '../apiService';
+
+
 
 const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -19,13 +22,25 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
     setSelectedListId(null);
   };
 
-  const confirmDelete = () => {
-    onDelete(selectedListId);
+  const confirmDelete = async () => {
+    try {
+      await deleteShoppingList(selectedListId);
+      onDelete(selectedListId); // Update local state after successful deletion
+    } catch (error) {
+      console.error('Error deleting shopping list:', error);
+      // Handle error, e.g., show an error message to the user
+    }
     closeDeleteDialog();
   };
 
-  const markAsDone = (id) => {
-    onArchive(id);
+  const markAsDone = async (id) => {
+    try {
+      await archiveShoppingList(id);
+      onArchive(id); // Update local state after successful archiving
+    } catch (error) {
+      console.error('Error archiving shopping list:', error);
+      // Handle error
+    }
   };
 
   const activeItems = shoppingLists.filter(list => !list.archived);
