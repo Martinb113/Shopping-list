@@ -1,14 +1,17 @@
 import { Server } from 'miragejs';
-import { MOCK_DATA } from './mockData';
+import mockData from './mockData'; // Ensure this matches the default export from mockData.js
 
 if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
   new Server({
     routes() {
+      this.namespace = 'api'; // Optional: Set a namespace for your mock API if needed
+
       this.get('/shopping-lists', () => {
-        return MOCK_DATA.shoppingLists;
+        console.log('Fetching shopping lists from mock server');
+        return mockData.shoppingLists; // Ensure the mockData has a shoppingLists property
       });
 
-      // Add other routes as needed.
+      // Define other routes as needed
     },
   });
 }

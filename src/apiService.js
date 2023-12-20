@@ -2,9 +2,11 @@ import MOCK_SHOPPING_LISTS from './mockData';
 
 
 export const fetchShoppingLists = async () => {
-    // Simulate a server response delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return MOCK_SHOPPING_LISTS;
+    const response = await fetch('/shopping-lists');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
   };
   
   export const deleteShoppingList = async (id) => {
