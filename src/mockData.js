@@ -1,5 +1,5 @@
 // Mock data for shopping lists
-const MOCK_DATA = {
+const mockData = {
     shoppingLists: [
       {
         id: 1,
@@ -8,25 +8,50 @@ const MOCK_DATA = {
         items: [
           { id: 1, name: 'Milk', quantity: 1, purchased: false },
           { id: 2, name: 'Bread', quantity: 2, purchased: false },
-          // More items...
+          { id: 3, name: 'Eggs', quantity: 1, purchased: true },
+          // Add more items...
         ],
-        archived: false
+        archived: false,
       },
       {
         id: 2,
         name: 'Electronics',
         description: 'Shopping for gadgets',
         items: [
-          { id: 3, name: 'Headphones', quantity: 1, purchased: false },
-          { id: 4, name: 'HDMI Cable', quantity: 1, purchased: false },
-          // More items...
+          { id: 4, name: 'Headphones', quantity: 1, purchased: false },
+          { id: 5, name: 'HDMI Cable', quantity: 1, purchased: false },
+          { id: 6, name: 'Laptop', quantity: 1, purchased: false },
+          { id: 7, name: 'Phone', quantity: 1, purchased: false },
+          // Add more items...
         ],
-        archived: false
+        archived: true,
       },
-      // More lists...
-    ]
+      {
+        id: 3,
+        name: 'Clothing',
+        description: 'Shopping for new clothes',
+        items: [
+          { id: 8, name: 'T-Shirt', quantity: 3, purchased: false },
+          { id: 9, name: 'Jeans', quantity: 1, purchased: false },
+          // Add more items...
+        ],
+        archived: false,
+      },
+      {
+        id: 4,
+        name: 'Home Improvement',
+        description: 'Buy tools and supplies',
+        items: [
+          { id: 10, name: 'Hammer', quantity: 1, purchased: false },
+          { id: 11, name: 'Paint Brushes', quantity: 3, purchased: false },
+          // Add more items...
+        ],
+        archived: false,
+      },
+      // Add more lists...
+    ],
   };
   
   // Export the mock data
-  export default MOCK_DATA;
+  export default mockData;
   

@@ -62,9 +62,13 @@ const ShoppingListsOverview = () => {
     }
   };
 
-  function handleAddList(newList) {
+  const handleAddList = async (newList) => {
+    try {
     setShoppingLists([...shoppingLists, { ...newList, id: shoppingLists.length + 1, archived: false }]);
+  } catch (error) {
+    console.error('Error adding shopping list:', error);
   }
+};
 
   const getFilteredLists = () => {
     switch (filterType) {

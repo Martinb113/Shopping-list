@@ -1,10 +1,10 @@
 // src/components/ShoppingList.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 import './ShoppingList.css';
-import { deleteShoppingList, archiveShoppingList } from '../apiService';
+import { deleteShoppingList, archiveShoppingList, fetchShoppingLists } from '../apiService';
 
 
 
@@ -12,6 +12,20 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedListId, setSelectedListId] = useState(null);
 
+  useEffect(() => {
+    // Example of how to use fetchShoppingLists
+    const fetchData = async () => {
+      try {
+        const shoppingData = await fetchShoppingLists();
+        console.log('Fetched shopping lists:', shoppingData);
+      } catch (error) {
+        console.error('Error fetching shopping lists:', error);
+      }
+    };
+
+    fetchData(); // Call the function to fetch shopping lists when the component mounts
+  }, []);
+  
   const openDeleteDialog = (id) => {
     setSelectedListId(id);
     setIsDeleteDialogOpen(true);

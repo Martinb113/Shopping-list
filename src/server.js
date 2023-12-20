@@ -1,17 +1,27 @@
 import { Server } from 'miragejs';
-import mockData from './mockData'; // Ensure this matches the default export from mockData.js
+import mockData from './mockData';
 
-if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
-  new Server({
-    routes() {
-      this.namespace = 'api'; // Optional: Set a namespace for your mock API if needed
+new Server({
+  routes() {
+    this.namespace = '/api';  // Define a namespace if your real API has one
 
-      this.get('/shopping-lists', () => {
-        console.log('Fetching shopping lists from mock server');
-        return mockData.shoppingLists; // Ensure the mockData has a shoppingLists property
-      });
+    this.get('/shopping-lists', () => { // Removed '/api' from the route path
+      return mockData.shoppingLists;
+    });
 
-      // Define other routes as needed
-    },
-  });
-}
+    // Add POST, PUT, DELETE handlers as needed
+    this.post('/shopping-lists', (schema, request) => {
+      // Logic to add a new shopping list
+    });
+
+    this.put('/shopping-lists/:id', (schema, request) => {
+      // Logic to update a shopping list
+    });
+
+    this.delete('/shopping-lists/:id', (schema, request) => {
+      // Logic to delete a shopping list
+    });
+
+    // Any other routes...
+  },
+});
