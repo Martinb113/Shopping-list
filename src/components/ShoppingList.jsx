@@ -8,16 +8,16 @@ import { deleteShoppingList, archiveShoppingList, fetchShoppingLists } from '../
 
 
 
-const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
+const ShoppingList = ({ onDelete, onArchive }) => {
+  const [shoppingLists, setShoppingLists] = useState([]); // State for shopping lists
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedListId, setSelectedListId] = useState(null);
 
   useEffect(() => {
-    // Example of how to use fetchShoppingLists
     const fetchData = async () => {
       try {
         const shoppingData = await fetchShoppingLists();
-        console.log('Fetched shopping lists:', shoppingData);
+        setShoppingLists(shoppingData);  // Update state with fetched data
       } catch (error) {
         console.error('Error fetching shopping lists:', error);
       }
@@ -56,6 +56,11 @@ const ShoppingList = ({ shoppingLists, onDelete, onArchive }) => {
       // Handle error
     }
   };
+
+  if (!Array.isArray(shoppingLists)) {
+    // Handle the case where shoppingLists is not an array
+    return <div>Error: Shopping lists data is not available.</div>;
+  }
 
   const activeItems = shoppingLists.filter(list => !list.archived);
   const archivedItems = shoppingLists.filter(list => list.archived);

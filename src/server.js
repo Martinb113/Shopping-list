@@ -5,21 +5,53 @@ new Server({
   routes() {
     this.namespace = '/api';  // Define a namespace if your real API has one
 
-    this.get('/shopping-lists', () => { // Removed '/api' from the route path
+    this.get('/shopping-lists', () => {
       return mockData.shoppingLists;
     });
 
-    // Add POST, PUT, DELETE handlers as needed
+    // Add a new shopping list
     this.post('/shopping-lists', (schema, request) => {
-      // Logic to add a new shopping list
+      const requestBody = JSON.parse(request.requestBody);
+      const newShoppingList = {
+        id: mockData.shoppingLists.length + 1, // Generate a new unique ID
+        name: requestBody.name,
+        description: requestBody.description,
+        items: [], // Initialize with an empty array of items
+        archived: false, // Set archived state to false by default
+      };
+
+      mockData.shoppingLists.push(newShoppingList);
+
+      return { shoppingList: newShoppingList };
     });
 
-    this.put('/shopping-lists/:id', (schema, request) => {
-      // Logic to update a shopping list
+    // Update the archived state of a shopping list
+    this.put('/shopping-lists/:id/archive', (schema, request) => {
+      const id = request.params.id;
+      const shoppingList = mockData.shoppingLists.find((list) => list.id === parseInt(id));
+
+      if (!shoppingList) {
+        return { error: 'Shopping list not found' };
+      }
+
+      shoppingList.archived = true; // Change the archived state to true
+
+      return { shoppingList };
     });
 
+    // Delete a shopping list
     this.delete('/shopping-lists/:id', (schema, request) => {
-      // Logic to delete a shopping list
+      const id = request.params.id;
+      const shoppingListIndex = mockData.shoppingLists.findIndex((list) => list.id === parseInt(id));
+
+      if (shoppingListIndex === -1) {
+        return { error: 'Shopping list not found' };
+      }
+
+      // Remove the shopping list from the array
+      mockData.shoppingLists.splice(shoppingListIndex, 1);
+
+      return { success: true };
     });
 
     // Any other routes...
