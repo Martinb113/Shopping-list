@@ -87,7 +87,6 @@ const archivedItems = Array.isArray(shoppingLists) ? shoppingLists.filter((list)
 <h2>Archived Items</h2>
       {archivedItems.length > 0 && (
         <div className="archived-items-section">
-          <h2>Archived Items</h2>
           {archivedItems.map((list) => (
             <div key={list.id} className="shopping-list-tile archived-item">
               <h3>{list.name}</h3>

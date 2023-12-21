@@ -3,7 +3,7 @@ let MOCK_SHOPPING_LISTS = require('./mockData').default;
 export const fetchShoppingLists = async () => {
   if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
     // Return mock data directly
-    console.log('Fetching mock data...');
+    console.log('Fetching mock data...apiServices');
     return MOCK_SHOPPING_LISTS;
   } else {
     // Fetch from the real API

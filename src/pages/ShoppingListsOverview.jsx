@@ -18,7 +18,7 @@ const ShoppingListsOverview = () => {
         const data = await fetchShoppingLists();
 
         // Add some logging here to see what `data` contains
-        console.log('Fetched data:', data);
+        console.log('Fetched data: Step useEffect ShLO', data);
 
         setShoppingLists(data);
       } catch (err) {
@@ -77,17 +77,57 @@ const ShoppingListsOverview = () => {
         id: shoppingLists.length + 1,
         archived: false,
       };
+  
+      // Check if shoppingLists is an array before adding the new list
+      if (Array.isArray(shoppingLists)) {
+        setShoppingLists([...shoppingLists, addedList]);
+      } else {
+        setShoppingLists([addedList]);
+      }
+  
       await saveNewShoppingList(addedList);
-      setShoppingLists([...shoppingLists, addedList]);
     } catch (error) {
       console.error('Error adding shopping list:', error);
     }
   };
 
+  /*const handleAddList = async (newList) => {
+    try {
+      const addedList = {
+        ...newList,
+        id: shoppingLists.length + 1,
+        archived: false,
+      };
+      await saveNewShoppingList(addedList);
+      setShoppingLists([...shoppingLists, addedList]);
+    } catch (error) {
+      console.error('Error adding shopping list:', error);
+    }
+  };*/
+
   async function saveNewShoppingList(newList) {
-    // Add logic to save the new shopping list to the server or API
-    // Example: await createShoppingList(newList);
+    try {
+      const response = await fetch('/api/shopping-lists', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newList)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('New shopping list saved:', data);
+      return data;
+    } catch (error) {
+      console.error('Error saving new shopping list:', error);
+      throw error; // Rethrow the error so it can be handled by the caller
+    }
   }
+  
 
   const getFilteredLists = () => {
     switch (filterType) {
