@@ -1,5 +1,5 @@
 // src/components/ShoppingListDetail.jsx
-
+import React, { useState } from 'react';
 // ... (other imports and code)
 
 const ShoppingListDetail = ({ shoppingList }) => {
