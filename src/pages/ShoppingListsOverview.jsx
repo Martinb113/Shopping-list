@@ -84,10 +84,10 @@ const ShoppingListsOverview = () => {
     }
   };
 
-  const saveNewShoppingList = async (newList) => {
+  async function saveNewShoppingList(newList) {
     // Add logic to save the new shopping list to the server or API
     // Example: await createShoppingList(newList);
-  };
+  }
 
   const getFilteredLists = () => {
     switch (filterType) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 import './ShoppingList.css';
 import { fetchShoppingLists } from '../apiService'; // Adjust the import path as needed
@@ -53,17 +54,18 @@ const ShoppingList = ({ onDelete, onArchive }) => {
     }
   };
 
-  if (!Array.isArray(shoppingLists)) {
+  /*if (!Array.isArray(shoppingLists)) {
     // Handle the case where shoppingLists is not an array
     return <div>Error: Shopping lists data is not available.</div>;
-  }
+  }*/
 
-  const activeItems = shoppingLists.filter((list) => !list.archived);
-  const archivedItems = shoppingLists.filter((list) => list.archived);
+const activeItems = Array.isArray(shoppingLists) ? shoppingLists.filter((list) => !list.archived) : [];
+const archivedItems = Array.isArray(shoppingLists) ? shoppingLists.filter((list) => list.archived) : [];
+
 
   return (
     <div className="shopping-lists">
-      {/* Render active items */}
+      <h2>Active Items</h2>
       {activeItems.map((list) => (
         <div key={list.id} className={`shopping-list-tile ${list.archived ? 'archived-item' : ''}`}>
           <h3>{list.name}</h3>
@@ -82,7 +84,7 @@ const ShoppingList = ({ onDelete, onArchive }) => {
         </div>
       ))}
 
-      {/* Render archived items at the bottom */}
+<h2>Archived Items</h2>
       {archivedItems.length > 0 && (
         <div className="archived-items-section">
           <h2>Archived Items</h2>
@@ -100,4 +102,9 @@ const ShoppingList = ({ onDelete, onArchive }) => {
   );
 };
 
+// Define PropTypes for the component's expected props
+ShoppingList.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+};
 export default ShoppingList;

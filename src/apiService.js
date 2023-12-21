@@ -8,7 +8,7 @@ export const fetchShoppingLists = async () => {
   } else {
     // Fetch from the real API
     try {
-      const response = await fetch('/api/shopping-lists');
+      const response = await fetch('/shopping-lists');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -27,7 +27,7 @@ export const deleteShoppingList = async (id) => {
     MOCK_SHOPPING_LISTS = MOCK_SHOPPING_LISTS.filter(list => list.id !== id);
   } else {
     // Call the real API to delete
-    const response = await fetch(`/api/shopping-lists/${id}`, { method: 'DELETE' });
+    const response = await fetch(`/shopping-lists/${id}`, { method: 'DELETE' });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -45,7 +45,7 @@ export const archiveShoppingList = async (id) => {
     }
   } else {
     // Call the real API to archive
-    const response = await fetch(`/api/shopping-lists/${id}/archive`, { method: 'PUT' });
+    const response = await fetch(`/shopping-lists/${id}/archive`, { method: 'PUT' });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

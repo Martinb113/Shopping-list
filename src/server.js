@@ -5,12 +5,12 @@ new Server({
   routes() {
     this.namespace = '/api';  // Define a namespace if your real API has one
 
-    this.get('/shopping-lists', () => {
+    this.get('/API/shopping-lists', () => {
       return mockData.shoppingLists;
     });
 
     // Add a new shopping list
-    this.post('/shopping-lists', (schema, request) => {
+    this.post('/API/shopping-lists', (schema, request) => {
       const requestBody = JSON.parse(request.requestBody);
       const newShoppingList = {
         id: mockData.shoppingLists.length + 1, // Generate a new unique ID
@@ -26,7 +26,7 @@ new Server({
     });
 
     // Update the archived state of a shopping list
-    this.put('/shopping-lists/:id/archive', (schema, request) => {
+    this.put('/API/shopping-lists/:id/archive', (schema, request) => {
       const id = request.params.id;
       const shoppingList = mockData.shoppingLists.find((list) => list.id === parseInt(id));
 
@@ -40,7 +40,7 @@ new Server({
     });
 
     // Delete a shopping list
-    this.delete('/shopping-lists/:id', (schema, request) => {
+    this.delete('/API/shopping-lists/:id', (schema, request) => {
       const id = request.params.id;
       const shoppingListIndex = mockData.shoppingLists.findIndex((list) => list.id === parseInt(id));
 
