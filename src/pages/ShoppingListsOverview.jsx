@@ -107,7 +107,7 @@ const ShoppingListsOverview = () => {
 
   async function saveNewShoppingList(newList) {
     try {
-      const response = await fetch('/api/shopping-lists', {
+      const response = await fetch('/shopping-lists', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

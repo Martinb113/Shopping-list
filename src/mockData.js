@@ -1,6 +1,5 @@
-// Mock data for shopping lists
-const MOCK_SHOPPING_LISTS = {
-  shoppingLists: [
+// Directly export the array of shopping lists
+export default [
     {
       id: 1,
       name: 'Groceries',
@@ -57,8 +56,5 @@ const MOCK_SHOPPING_LISTS = {
       archived: false,
     },
     // Add more lists...
-  ],
-};
+  ];
 
-// Export the mock data
-export default MOCK_SHOPPING_LISTS;
