@@ -1,12 +1,12 @@
-// ShoppingListTile.js
+// ShoppingListTile.jsx
 import React from 'react';
 
-const ShoppingListTile = ({ list, onDelete }) => {
+const ShoppingListTile = ({ shoppingList, onSelect }) => {
   return (
-    <div>
-      <h3>{list.name}</h3>
-      <p>{list.description}</p>
-      <button onClick={onDelete}>Delete</button>
+    <div onClick={() => onSelect(shoppingList.id)}>
+      <h3>{shoppingList.name}</h3>
+      <p>{shoppingList.description}</p>
+      {/* More details can be displayed as needed */}
     </div>
   );
 };
