@@ -3,17 +3,24 @@ let MOCK_SHOPPING_LISTS = require('./mockData').default;
 export const fetchShoppingLists = async () => {
   if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
     // Return mock data directly
+    console.log('Fetching mock data...');
     return MOCK_SHOPPING_LISTS;
   } else {
     // Fetch from the real API
-    const response = await fetch('/api/shopping-lists'); // Make sure to use the correct namespace if any
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    try {
+      const response = await fetch('/api/shopping-lists');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log('Fetched data from the API:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching data from the API:', error);
+      throw error;
     }
-    return await response.json();
   }
 };
-
 export const deleteShoppingList = async (id) => {
   if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
     // Update the mock data variable

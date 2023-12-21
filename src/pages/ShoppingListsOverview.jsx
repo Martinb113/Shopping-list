@@ -8,7 +8,7 @@ const ShoppingListsOverview = () => {
   const [shoppingLists, setShoppingLists] = useState([]);
   const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [selectedListId, setSelectedListId] = useState(null);
-  const [filterType, setFilterType] = useState('all'); // State to toggle archived items
+  const [filterType, setFilterType] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,6 +16,10 @@ const ShoppingListsOverview = () => {
     const loadShoppingLists = async () => {
       try {
         const data = await fetchShoppingLists();
+
+        // Add some logging here to see what `data` contains
+        console.log('Fetched data:', data);
+
         setShoppingLists(data);
       } catch (err) {
         setError(err.message);
@@ -36,10 +40,12 @@ const ShoppingListsOverview = () => {
     setIsLoading(true);
     setError(null);
     try {
-      await archiveShoppingList(id); 
-      setShoppingLists(currentLists => currentLists.map(list => 
-        list.id === id ? { ...list, archived: true } : list
-      ));
+      await archiveShoppingList(id);
+      setShoppingLists((currentLists) =>
+        currentLists.map((list) =>
+          list.id === id ? { ...list, archived: true } : list
+        )
+      );
     } catch (error) {
       setError('Could not archive the item. Please try again.');
     } finally {
@@ -52,7 +58,9 @@ const ShoppingListsOverview = () => {
     setError(null);
     try {
       await deleteShoppingList(selectedListId);
-      setShoppingLists(currentLists => currentLists.filter(list => list.id !== selectedListId));
+      setShoppingLists((currentLists) =>
+        currentLists.filter((list) => list.id !== selectedListId)
+      );
     } catch (error) {
       setError('Could not delete the item. Please try again.');
     } finally {
@@ -64,18 +72,29 @@ const ShoppingListsOverview = () => {
 
   const handleAddList = async (newList) => {
     try {
-    setShoppingLists([...shoppingLists, { ...newList, id: shoppingLists.length + 1, archived: false }]);
-  } catch (error) {
-    console.error('Error adding shopping list:', error);
-  }
-};
+      const addedList = {
+        ...newList,
+        id: shoppingLists.length + 1,
+        archived: false,
+      };
+      await saveNewShoppingList(addedList);
+      setShoppingLists([...shoppingLists, addedList]);
+    } catch (error) {
+      console.error('Error adding shopping list:', error);
+    }
+  };
+
+  const saveNewShoppingList = async (newList) => {
+    // Add logic to save the new shopping list to the server or API
+    // Example: await createShoppingList(newList);
+  };
 
   const getFilteredLists = () => {
     switch (filterType) {
       case 'archived':
-        return shoppingLists.filter(list => list.archived);
+        return shoppingLists.filter((list) => list.archived);
       case 'active':
-        return shoppingLists.filter(list => !list.archived);
+        return shoppingLists.filter((list) => !list.archived);
       default:
         return shoppingLists;
     }
@@ -104,14 +123,14 @@ const ShoppingListsOverview = () => {
         <button onClick={() => setFilterType('archived')}>Archived</button>
         <button onClick={() => setFilterType('active')}>Active</button>
       </div>
-      <ShoppingList 
+      <ShoppingList
         shoppingLists={filteredLists}
-        onDelete={openDeleteConfirmation} 
+        onDelete={openDeleteConfirmation}
         onArchive={handleArchive}
       />
-      <DeleteConfirmationDialog 
-        isOpen={isDeleteConfirmationOpen} 
-        onCancel={() => setDeleteConfirmationOpen(false)} 
+      <DeleteConfirmationDialog
+        isOpen={isDeleteConfirmationOpen}
+        onCancel={() => setDeleteConfirmationOpen(false)}
         onConfirm={handleConfirmDelete}
       />
     </div>

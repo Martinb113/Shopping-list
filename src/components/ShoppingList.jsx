@@ -1,17 +1,15 @@
-// src/components/ShoppingList.jsx
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 import './ShoppingList.css';
-import { deleteShoppingList, archiveShoppingList, fetchShoppingLists } from '../apiService';
-
+import { fetchShoppingLists } from '../apiService'; // Adjust the import path as needed
 
 
 const ShoppingList = ({ onDelete, onArchive }) => {
   const [shoppingLists, setShoppingLists] = useState([]); // State for shopping lists
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedListId, setSelectedListId] = useState(null);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +23,7 @@ const ShoppingList = ({ onDelete, onArchive }) => {
 
     fetchData(); // Call the function to fetch shopping lists when the component mounts
   }, []);
-  
+
   const openDeleteDialog = (id) => {
     setSelectedListId(id);
     setIsDeleteDialogOpen(true);
@@ -38,8 +36,7 @@ const ShoppingList = ({ onDelete, onArchive }) => {
 
   const confirmDelete = async () => {
     try {
-      await deleteShoppingList(selectedListId);
-      onDelete(selectedListId); // Update local state after successful deletion
+      await onDelete(selectedListId);
     } catch (error) {
       console.error('Error deleting shopping list:', error);
       // Handle error, e.g., show an error message to the user
@@ -49,8 +46,7 @@ const ShoppingList = ({ onDelete, onArchive }) => {
 
   const markAsDone = async (id) => {
     try {
-      await archiveShoppingList(id);
-      onArchive(id); // Update local state after successful archiving
+      await onArchive(id);
     } catch (error) {
       console.error('Error archiving shopping list:', error);
       // Handle error
@@ -62,8 +58,8 @@ const ShoppingList = ({ onDelete, onArchive }) => {
     return <div>Error: Shopping lists data is not available.</div>;
   }
 
-  const activeItems = shoppingLists.filter(list => !list.archived);
-  const archivedItems = shoppingLists.filter(list => list.archived);
+  const activeItems = shoppingLists.filter((list) => !list.archived);
+  const archivedItems = shoppingLists.filter((list) => list.archived);
 
   return (
     <div className="shopping-lists">
@@ -79,7 +75,9 @@ const ShoppingList = ({ onDelete, onArchive }) => {
             <button className="delete-button" onClick={() => openDeleteDialog(list.id)}>
               Delete
             </button>
-            <button className="Done-Button" onClick={() => markAsDone(list.id)}>Done</button>
+            <button className="Done-Button" onClick={() => markAsDone(list.id)}>
+              Done
+            </button>
           </div>
         </div>
       ))}
@@ -97,11 +95,7 @@ const ShoppingList = ({ onDelete, onArchive }) => {
         </div>
       )}
 
-      <DeleteConfirmationDialog
-        isOpen={isDeleteDialogOpen}
-        onCancel={closeDeleteDialog}
-        onConfirm={confirmDelete}
-      />
+      <DeleteConfirmationDialog isOpen={isDeleteDialogOpen} onCancel={closeDeleteDialog} onConfirm={confirmDelete} />
     </div>
   );
 };
