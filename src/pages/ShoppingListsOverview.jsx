@@ -11,7 +11,7 @@ const ShoppingListsOverview = () => {
   const [filterType, setFilterType] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  console.log('Component re-rendered with filterType:', filterType);
   useEffect(() => {
     const loadShoppingLists = async () => {
       try {
@@ -46,6 +46,8 @@ const ShoppingListsOverview = () => {
           list.id === id ? { ...list, archived: true } : list
         )
       );
+      // Add this line to update the filterType state
+      setFilterType('active'); // Assuming want to show active lists after archiving one
     } catch (error) {
       setError('Could not archive the item. Please try again.');
     } finally {
@@ -132,10 +134,13 @@ const ShoppingListsOverview = () => {
   const getFilteredLists = () => {
     switch (filterType) {
       case 'archived':
+        console.log('Filtering for archived lists');
         return shoppingLists.filter((list) => list.archived);
       case 'active':
+        console.log('Filtering for active lists');
         return shoppingLists.filter((list) => !list.archived);
       default:
+        console.log('No filter applied');
         return shoppingLists;
     }
   };
@@ -164,7 +169,7 @@ const ShoppingListsOverview = () => {
         <button onClick={() => setFilterType('active')}>Active</button>
       </div>
       <ShoppingList
-        shoppingLists={filteredLists}
+        shoppingLists={filteredLists} // Pass the filtered lists as a prop
         onDelete={openDeleteConfirmation}
         onArchive={handleArchive}
       />

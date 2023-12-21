@@ -1,10 +1,10 @@
-let MOCK_SHOPPING_LISTS = require('./mockData').default;
+let mShoppingLists = require('./mockData').default;
 
 export const fetchShoppingLists = async () => {
   if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
     // Return mock data directly
     console.log('Fetching mock data...apiServices');
-    return MOCK_SHOPPING_LISTS;
+    return mShoppingLists;
   } else {
     // Fetch from the real API
     try {
@@ -24,7 +24,7 @@ export const fetchShoppingLists = async () => {
 export const deleteShoppingList = async (id) => {
   if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
     // Update the mock data variable
-    MOCK_SHOPPING_LISTS = MOCK_SHOPPING_LISTS.filter(list => list.id !== id);
+    mShoppingLists = mShoppingLists.filter(list => list.id !== id);
   } else {
     // Call the real API to delete
     const response = await fetch(`/shopping-lists/${id}`, { method: 'DELETE' });
@@ -38,10 +38,11 @@ export const deleteShoppingList = async (id) => {
 export const archiveShoppingList = async (id) => {
   if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
     // Simulate archiving in the mock data
-    const listIndex = MOCK_SHOPPING_LISTS.findIndex(list => list.id === id);
+    console.log ("this is archive shopping list in apiService")
+    const listIndex = mShoppingLists.findIndex(list => list.id === id);
     if (listIndex > -1) {
-      MOCK_SHOPPING_LISTS[listIndex].archived = true;
-      return MOCK_SHOPPING_LISTS[listIndex]; // Return the updated list
+      mShoppingLists[listIndex].archived = true;
+      return mShoppingLists[listIndex]; // Return the updated list
     }
   } else {
     // Call the real API to archive
