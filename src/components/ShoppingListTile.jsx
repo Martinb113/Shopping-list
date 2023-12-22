@@ -1,5 +1,6 @@
 // ShoppingListTile.jsx
 import React from 'react';
+import '../styles/styles.css';
 
 const ShoppingListTile = ({ shoppingList, onSelect, isExpanded }) => {
   const renderItemDetails = (item) => {
