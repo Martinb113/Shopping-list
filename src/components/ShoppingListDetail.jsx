@@ -2,41 +2,28 @@ import React, { useState } from 'react';
 import ItemForm from './ItemForm'; // Component to add items to the list
 import Item from './Item'; // Component to display each item
 
-// ... (other imports and code)
+const ShoppingListDetail = ({ shoppingList }) => {
+  // Assuming shoppingList contains an `items` array
+  const [items, setItems] = useState(shoppingList.items);
 
-const ShoppingListDetail = ({
-  shoppingList,
-  handleAddList,
-  filteredLists,
-  isDeleteConfirmationOpen,
-  setDeleteConfirmationOpen,
-  handleConfirmDelete,
-  setFilterType, // Accept setFilterType as a prop
-}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const handleAddItem = (newItem) => {
+    // Add the new item to the items array
+    setItems([...items, newItem]);
+  };
 
-  const toggleExpansion = () => {
-    setIsExpanded(!isExpanded);
+  const handleDeleteItem = (itemId) => {
+    // Remove the item from the items array
+    setItems(items.filter(item => item.id !== itemId));
   };
 
   return (
     <div>
-      <h1>My Shopping Lists</h1>
-      <AddShoppingListForm onAddList={handleAddList} />
-      <div style={{ margin: '10px 0' }}>
-        <button onClick={() => setFilterType('all')}>All</button>
-        <button onClick={() => setFilterType('archived')}>Archived</button>
-        <button onClick={() => setFilterType('active')}>Active</button>
-      </div>
-
-      {Array.isArray(filteredLists) && filteredLists.map((list) => (
-  <ShoppingListTile key={list.id} shoppingList={list} />
-))}
-      <DeleteConfirmationDialog
-        isOpen={isDeleteConfirmationOpen}
-        onCancel={() => setDeleteConfirmationOpen(false)}
-        onConfirm={handleConfirmDelete}
-      />
+      <h2>{shoppingList.name}</h2>
+      <p>{shoppingList.description}</p>
+      <ItemForm onAddItem={handleAddItem} />
+      {items.map(item => (
+        <Item key={item.id} item={item} onDeleteItem={handleDeleteItem} />
+      ))}
     </div>
   );
 };
