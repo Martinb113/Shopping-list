@@ -5,6 +5,7 @@ import DeleteConfirmationDialog from '../components/DeleteConfirmationDialog';
 import { deleteShoppingList, archiveShoppingList, fetchShoppingLists } from '../apiService';
 import ShoppingListTile from '../components/ShoppingListTile'; // Make sure to import ShoppingListTile
 
+
 const ShoppingListsOverview = () => {
   const [shoppingLists, setShoppingLists] = useState([]);
   const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);

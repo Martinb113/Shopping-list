@@ -1,5 +1,5 @@
 // Rename the mock data array to "shoppingLists"
-const shoppingLists = [
+const mShoppingLists = [
   {
     id: 1,
     name: 'Groceries',
@@ -59,4 +59,4 @@ const shoppingLists = [
 ];
 
 // Directly export the "shoppingLists" array
-export default shoppingLists;
+export default mShoppingLists;

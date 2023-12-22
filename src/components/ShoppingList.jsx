@@ -76,6 +76,7 @@ const ShoppingList = ({ onDelete, onArchive }) => {
   return (
     <div className="shopping-lists">
       {/* Render active items */}
+      <h2>Active Items</h2>
       {activeItems.map((list) => (
         <div key={list.id} className={`shopping-list-tile ${list.archived ? 'archived-item' : ''}`} onClick={() => toggleExpandList(list.id)}>
           <h3>{list.name}</h3>
@@ -83,17 +84,26 @@ const ShoppingList = ({ onDelete, onArchive }) => {
           {expandedListId === list.id && (
             // Render detailed list view or additional components here
           )}
+      
           <div className="buttons-container">
-            {/* Keep the existing buttons */}
-            {/* ... */}
+          <Link to={`/shopping-list/${list.id}`}>
+              <button className="view-button">View Details</button>
+            </Link>
+            <button className="delete-button" onClick={() => openDeleteDialog(list.id)}>
+              Delete
+            </button>
+            <button className="Done-Button" onClick={() => markAsDone(list.id)}>
+              Done
+            </button>
+
           </div>
         </div>
       ))}
 
       {/* Render archived items at the bottom */}
+    <h2>Archived Items</h2> 
       {archivedItems.length > 0 && (
         <div className="preview">
-          <h2>Archived Items</h2>
           {archivedItems.map((list) => (
             <div key={list.id} className="shopping-list-tile archived-item">
               <h3>{list.name}</h3>
