@@ -14,6 +14,15 @@ const ShoppingListsOverview = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null); // Define error state
   const [selectedList, setSelectedList] = useState(null);
+  const [expandedListId, setExpandedListId] = useState(null);
+
+  const handleSelectList = (listId) => {
+    if (expandedListId === listId) {
+      setExpandedListId(null); // Collapse if it's the same list
+    } else {
+      setExpandedListId(listId); // Expand the clicked list
+    }
+  };
 
   useEffect(() => {
     const loadShoppingLists = async () => {
@@ -138,13 +147,7 @@ const ShoppingListsOverview = () => {
     return <div>No shopping lists found.</div>;
   }
 
-  //Add state to track the selected list
-    const handleSelectList = (listId) => {
-    const list = shoppingLists.find((l) => l.id === listId);
-    setSelectedList(list);
-  };
-
-
+  
   return (
     <div>
     <h1>My Shopping Lists</h1>
@@ -160,10 +163,11 @@ const ShoppingListsOverview = () => {
     ) : (
     filteredLists.map((list) => (
       <ShoppingListTile
-        key={list.id}
-        shoppingList={list}
-        onSelect={handleSelectList}
-      />
+          key={list.id}
+          shoppingList={list}
+          onSelect={() => handleSelectList(list.id)}
+          isExpanded={expandedListId === list.id}
+        />
       ))
     )}
 
