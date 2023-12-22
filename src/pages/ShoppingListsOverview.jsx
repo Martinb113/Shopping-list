@@ -12,6 +12,7 @@ const ShoppingListsOverview = () => {
   const [filterType, setFilterType] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null); // Define error state
+  const [selectedList, setSelectedList] = useState(null);
 
   useEffect(() => {
     const loadShoppingLists = async () => {
@@ -136,31 +137,40 @@ const ShoppingListsOverview = () => {
     return <div>No shopping lists found.</div>;
   }
 
-  const handleSelectList = (id) => {
-    // Logic to handle list selection, maybe to display ShoppingListDetail
+  //Add state to track the selected list
+    const handleSelectList = (listId) => {
+    const list = shoppingLists.find((l) => l.id === listId);
+    setSelectedList(list);
   };
+
 
   return (
     <div>
     <h1>My Shopping Lists</h1>
     <AddShoppingListForm onAddList={handleAddList} />
-    <div style={{ margin: '10px 0' }}>
+    <div className="buttons-container"  style={{ margin: '10px 0' }}>
       <button onClick={() => setFilterType('all')}>All</button>
       <button onClick={() => setFilterType('archived')}>Archived</button>
       <button onClick={() => setFilterType('active')}>Active</button>
     </div>
-    {filteredLists.map((list) => (
+    
+    {selectedList ? (
+      <ShoppingListDetail shoppingList={selectedList} />
+    ) : (
+    filteredLists.map((list) => (
       <ShoppingListTile
         key={list.id}
         shoppingList={list}
         onSelect={handleSelectList}
       />
-    ))}
-    <DeleteConfirmationDialog
-      isOpen={isDeleteConfirmationOpen}
-      onCancel={() => setDeleteConfirmationOpen(false)}
-      onConfirm={handleConfirmDelete}
-    />
+      ))
+    )}
+
+      <DeleteConfirmationDialog
+        isOpen={isDeleteConfirmationOpen}
+        nCancel={() => setDeleteConfirmationOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
   </div>
   );
 };

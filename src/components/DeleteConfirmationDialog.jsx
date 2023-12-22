@@ -1,5 +1,5 @@
 import React from 'react';
-import './deleteConfDialog.css';
+
 
 const DeleteConfirmationDialog = ({ isOpen, onCancel, onConfirm }) => {
   if (!isOpen) {

@@ -16,17 +16,17 @@ function AddShoppingListForm({ onAddList }) {
   };
 
   return (
-    <div className="add-list-form">
+    <div className="add-new">
       <form onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          List Name:
+          <input className="ctrl" type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <label>
           Description:
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <input className="ctrl" type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
-        <button type="submit">Add Item</button>
+        <button className="button" type="submit">Add Item</button>
       </form>
     </div>
   );

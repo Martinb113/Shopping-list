@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
-import './ShoppingList.css';
 import { deleteShoppingList, archiveShoppingList, fetchShoppingLists } from '../apiService';
 
 
