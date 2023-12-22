@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
-import AddShoppingListForm from './AddShoppingListForm'; // Import AddShoppingListForm
-//import { setFilterType } from '../pages/ShoppingListsOverview'; // Import setFilterType if necessary
-import DeleteConfirmationDialog from './DeleteConfirmationDialog'; // Import DeleteConfirmationDialog if necessary
-import ShoppingListTile from './ShoppingListTile'; // Make sure to import ShoppingListTile
+import React, { useState } from 'react';
+import ItemForm from './ItemForm'; // Component to add items to the list
+import Item from './Item'; // Component to display each item
 
 // ... (other imports and code)
 

@@ -82,7 +82,18 @@ const ShoppingList = ({ onDelete, onArchive }) => {
           <h3>{list.name}</h3>
           <p>{list.description}</p>
           {expandedListId === list.id && (
-            // Render detailed list view or additional components here
+            <div className="list-details">
+            {/* Iterate over the list items here */}
+            {list.items.map(item => (
+              <div key={item.id} className="list-item">
+                <span>{item.name}</span>
+                <span>Quantity: {item.quantity}</span>
+                {/* Add other item details and actions here */}
+              </div>
+            ))}
+            {/* Add an ItemForm component here to add new items */}
+            <ItemForm onAddItem={(newItem) => handleAddItemToList(list.id, newItem)} />
+          </div>
           )}
       
           <div className="buttons-container">
