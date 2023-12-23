@@ -21,8 +21,9 @@ const ShoppingListDetail = ({ shoppingList }) => {
       {/* Render items */}
       {items.map(item => (
         <div key={item.id} className="list-item">
-          <span className="item-name">Name: {item.name}</span>
-          <span className="item-quantity">Quantity: {item.quantity}</span>
+          <span className="item-name">{item.name}</span>
+          <span className="item-quantity"> {item.quantity}</span>
+          <span className="item-purchased"> {item.purchased}</span>
           {/* ... other item details ... */}
           <button onClick={() => handleDeleteItem(item.id)}>Delete</button>
         </div>

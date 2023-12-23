@@ -7,6 +7,13 @@ import '../styles/ShoppingListTile.css';
 
 
 const ShoppingListTile = ({ shoppingList, onSelect, isExpanded }) => {
+  
+  
+  const handleHeaderClick = (e) => {
+    onSelect(shoppingList.id);
+    e.stopPropagation(); // Prevents event from bubbling up
+  };
+
   const renderItemDetails = (item) => {
     return (
       <div key={item.id} className="item-details">
@@ -20,15 +27,20 @@ const ShoppingListTile = ({ shoppingList, onSelect, isExpanded }) => {
 
   return (
     <div className="shopping-list-tile">
-      <div className="tile-header" onClick={() => onSelect(shoppingList.id)}>
+      <div className="tile-header" onClick={handleHeaderClick}>
         <h3>{shoppingList.name}</h3>
-      <p>{shoppingList.description}</p>
-      {isExpanded && (
-        <ShoppingListDetail shoppingList={shoppingList} />
-      )}
+        <p>{shoppingList.description}</p>
       </div>
+      {isExpanded && (
+        <div onClick={(e) => e.stopPropagation()}>
+          {shoppingList.items.map(renderItemDetails)}
+          {/* Optionally include ShoppingListDetail here if it is used for different purpose */}
+          {<ShoppingListDetail shoppingList={shoppingList} />}
+        </div>
+      )}
     </div>
   );
 };
 
 export default ShoppingListTile;
+
