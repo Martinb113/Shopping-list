@@ -1,6 +1,10 @@
 // ShoppingListTile.jsx
 import React from 'react';
-import '../styles/styles.css';
+import ShoppingListDetail from './ShoppingListDetail'; // Adjust the path as necessary
+import '../styles/ShoppingListTile.css';
+
+// ... rest of the component code ...
+
 
 const ShoppingListTile = ({ shoppingList, onSelect, isExpanded }) => {
   const renderItemDetails = (item) => {
@@ -15,14 +19,14 @@ const ShoppingListTile = ({ shoppingList, onSelect, isExpanded }) => {
   };
 
   return (
-    <div className="shopping-list-tile" onClick={() => onSelect(shoppingList.id)}>
-      <h3>{shoppingList.name}</h3>
+    <div className="shopping-list-tile">
+      <div className="tile-header" onClick={() => onSelect(shoppingList.id)}>
+        <h3>{shoppingList.name}</h3>
       <p>{shoppingList.description}</p>
       {isExpanded && (
-        <div className="list-item-container">
-          {shoppingList.items.map(renderItemDetails)}
-        </div>
+        <ShoppingListDetail shoppingList={shoppingList} />
       )}
+      </div>
     </div>
   );
 };

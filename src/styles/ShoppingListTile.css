@@ -1,0 +1,26 @@
+/* ShoppingListTile Styles */
+.shopping-list-tile {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: black;
+  }
+  
+  .tile-header {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  
+  .tile-header h3 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .tile-header p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
