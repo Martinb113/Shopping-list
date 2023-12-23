@@ -100,52 +100,7 @@ p {
   }
 }
 
-/* ShoppingListTile Styles */
-.shopping-list-tile {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
 
-.tile-header {
-  cursor: pointer;
-  margin-bottom: 5px;
-}
-
-.tile-header h3 {
-  margin: 0;
-  color: #333;
-}
-
-.tile-header p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #666;
-}
-
-/* ShoppingListDetail Styles */
-.list-details {
-  padding: 10px;
-  border-top: 1px solid #ddd;
-  background-color: #fff;
-}
-
-.list-item {
-  margin-bottom: 5px;
-  padding: 5px;
-  border: 1px solid #eee;
-  border-radius: 3px;
-}
-
-.item-name {
-  font-weight: bold;
-}
-
-.item-quantity {
-  margin-left: 10px;
-}
 
 /* Additional Styles */
 /* Add here any other styles that are unique and not duplicated */

@@ -78,34 +78,37 @@ const ShoppingList = ({ onDelete, onArchive }) => {
       {/* Render active items */}
       <h2>Active Items</h2>
       {activeItems.map((list) => (
+        
         <div key={list.id} className={`shopping-list-tile ${list.archived ? 'archived-item' : ''}`} onClick={() => toggleExpandList(list.id)}>
+          <div className="tile-header" onClick={() => toggleExpandList(list.id)}>
           <h3>{list.name}</h3>
           <p>{list.description}</p>
+          </div>
+
           {expandedListId === list.id && (
             <div className="list-details">
             {/* Iterate over the list items here */}
             {list.items.map(item => (
               <div key={item.id} className="list-item">
                 <span>{item.name}</span>
-                <span>Quantity: {item.quantity}</span>
+                <span>{item.quantity}</span>
                 {/* Add other item details and actions here */}
               </div>
             ))}
+
             {/* Add an ItemForm component here to add new items */}
             <ItemForm onAddItem={(newItem) => handleAddItemToList(list.id, newItem)} />
-          </div>
+            </div>
           )}
       
+      {/* Buttons for each list (visible in both expanded and collapsed state) */}
           <div className="buttons-container">
-          <Link to={`/shopping-list/${list.id}`}>
-              <button className="view-button">View Details</button>
-            </Link>
-            <button className="delete-button" onClick={() => openDeleteDialog(list.id)}>
-              Delete
-            </button>
-            <button className="Done-Button" onClick={() => markAsDone(list.id)}>
-              Done
-            </button>
+              <button className="delete-button" onClick={(e) => {e.stopPropagation(); openDeleteDialog(list.id);}}>
+                Delete
+              </button>
+              <button className="done-button" onClick={(e) => {e.stopPropagation(); markAsDone(list.id);}}>
+                Done
+              </button>
 
           </div>
         </div>
