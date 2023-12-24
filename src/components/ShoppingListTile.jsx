@@ -30,10 +30,11 @@ const ShoppingListTile = ({ shoppingList, onSelect, isExpanded }) => {
       <div className="tile-header" onClick={handleHeaderClick}>
         <h3>{shoppingList.name}</h3>
         <p>{shoppingList.description}</p>
+        
       </div>
       {isExpanded && (
         <div onClick={(e) => e.stopPropagation()}>
-          {shoppingList.items.map(renderItemDetails)}
+          {/*shoppingList.items.map(renderItemDetails)*/}
           {/* Optionally include ShoppingListDetail here if it is used for different purpose */}
           {<ShoppingListDetail shoppingList={shoppingList} />}
         </div>
